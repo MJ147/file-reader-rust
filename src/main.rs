@@ -18,3 +18,30 @@ fn main() {
         process::exit(1)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn one_result() {
+        let query = "Sec";
+        let contents = "\
+First test line
+Second test line
+Third test line";
+
+        assert_eq!(vec!["Second test line"], lib::search(query, contents));
+    }
+
+    #[test]
+    fn case_insensitive() {
+        let query = "Test";
+        let contents = "\
+First test line
+Second test line
+Third test line";
+
+        assert_eq!(vec!["First test line", "Second test line", "Third test line"], lib::search_case_insensitive(query, contents));
+    }
+}
